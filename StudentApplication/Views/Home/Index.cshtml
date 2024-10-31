@@ -1,0 +1,43 @@
+﻿@model IEnumerable<StudentApplication.Models.Student>
+
+<p>
+    <a href="/Student/Create">Create New</a>
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th>Department</th>
+            <th>Class</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var student in Model)
+            {
+                <tr>
+                    <td>@student.Name</td>
+                    <td>@student.Surname</td>
+                    <td>@student.Age</td>
+                    <td>@student.Department</td>
+                    <td>@student.Class</td>
+                    <td>
+                        <a href="/Student/Edit/@student.Id">Edit</a> |
+                        <a href="/Student/Details/@student.Id">Details</a> |
+                        <a href="/Student/Delete/@student.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6">No students available.</td>
+            </tr>
+        }
+    </tbody>
+</table>
