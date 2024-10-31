@@ -1,43 +1,38 @@
 ﻿@model IEnumerable<StudentApplication.Models.Student>
 
-<p>
-    <a href="/Student/Create">Create New</a>
-</p>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Age</th>
-            <th>Department</th>
-            <th>Class</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            foreach (var student in Model)
-            {
-                <tr>
-                    <td>@student.Name</td>
-                    <td>@student.Surname</td>
-                    <td>@student.Age</td>
-                    <td>@student.Department</td>
-                    <td>@student.Class</td>
-                    <td>
-                        <a href="/Student/Edit/@student.Id">Edit</a> |
-                        <a href="/Student/Details/@student.Id">Details</a> |
-                        <a href="/Student/Delete/@student.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        }
-        else
-        {
+<div class="container">
+    <h1>Students List</h1>
+    <table class="table">
+        <thead>
             <tr>
-                <td colspan="6">No students available.</td>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Age</th>
+                <th>Department</th>
+                <th>Class</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                    <tr>
+                        <td>@student.Name</td>
+                        <td>@student.Surname</td>
+                        <td>@student.Age</td>
+                        <td>@student.Department</td>
+                        <td>@student.Class</td>
+                        <td class="actions">
+                            <a href="/Home/Details/@student.Id" class="btn">Details</a>
+                            <a href="/Home/Edit/@student.Id" class="btn">Edit</a>
+                            <form asp-action="Delete" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@student.Id" />
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+    <a href="/Home/Create" class="btn">Create New Student</a>
+</div>
