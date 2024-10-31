@@ -8,6 +8,7 @@
         public string Faculty { get; set; }
         public string Department { get; set; }
         public string StudentNumber { get; set; }
+        public double GPA { get; set; }
         public List<Grade> Grades { get; set; } = new List<Grade>();
     }
 }

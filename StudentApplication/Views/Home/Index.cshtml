@@ -1,36 +1,69 @@
 ﻿@model IEnumerable<StudentApplication.Models.Student>
+@{
+    ViewData["Title"] = "Students List";
+}
 
-    <h1>Students List</h1>
-    <table class="table">
-        <thead>
+<h1>Students List</h1>
+
+<p>Total Students: @Model.Count()</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td colspan="7">
+                <form asp-action="Index" method="get" class="form-inline d-flex justify-content-between">
+                    <div class="form-group mb-2">
+                        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search students..." />
+                    </div>
+                    <div class="form-group mb-2">
+                        <input type="submit" value="Search" class="btn btn-primary" />
+                    </div>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["SurnameSortParm"]">Surname</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["FacultySortParm"]">Faculty</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DepartmentSortParm"]">Department</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["StudentNumberSortParm"]">Student Number</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["GPASortParm"]">GPA</a>
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
             <tr>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Faculty</th>
-                <th>Department</th>
-                <th>Student Number</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var student in Model)
-            {
-                    <tr>
-                        <td>@student.Name</td>
-                        <td>@student.Surname</td>
-                        <td>@student.Faculty</td>
-                        <td>@student.Department</td>
-                        <td>@student.StudentNumber</td>
-                        <td class="actions">
+                <td>@student.Name</td>
+                <td>@student.Surname</td>
+                <td>@student.Faculty</td>
+                <td>@student.Department</td>
+                <td>@student.StudentNumber</td>
+                <td>@student.GPA</td>
+                <td class="actions">
                     <a href="/Home/Details/@student.Id" class="btn btn-info">Details</a>
                     <a href="/Home/Edit/@student.Id" class="btn btn-primary">Edit</a>
-                            <form asp-action="Delete" method="post" style="display:inline;">
-                                <input type="hidden" name="id" value="@student.Id" />
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-            }
-        </tbody>
-    </table>
+                    <form asp-action="Delete" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@student.Id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <a href="/Home/Create" class="btn btn-primary">Create New Student</a>

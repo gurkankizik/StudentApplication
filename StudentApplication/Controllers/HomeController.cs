@@ -16,10 +16,65 @@ namespace StudentApplication.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string searchString, string sortOrder)
         {
-            var students = _context.Students.ToList();
-            return View(students);
+            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["SurnameSortParm"] = sortOrder == "Surname" ? "surname_desc" : "Surname";
+            ViewData["FacultySortParm"] = sortOrder == "Faculty" ? "faculty_desc" : "Faculty";
+            ViewData["DepartmentSortParm"] = sortOrder == "Department" ? "department_desc" : "Department";
+            ViewData["StudentNumberSortParm"] = sortOrder == "StudentNumber" ? "studentNumber_desc" : "StudentNumber";
+            ViewData["GPASortParm"] = sortOrder == "GPA" ? "gpa_desc" : "GPA";
+            ViewData["CurrentFilter"] = searchString;
+
+            var students = from s in _context.Students
+                           select s;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.Name.Contains(searchString) || s.Surname.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.Name);
+                    break;
+                case "Surname":
+                    students = students.OrderBy(s => s.Surname);
+                    break;
+                case "surname_desc":
+                    students = students.OrderByDescending(s => s.Surname);
+                    break;
+                case "Faculty":
+                    students = students.OrderBy(s => s.Faculty);
+                    break;
+                case "faculty_desc":
+                    students = students.OrderByDescending(s => s.Faculty);
+                    break;
+                case "Department":
+                    students = students.OrderBy(s => s.Department);
+                    break;
+                case "department_desc":
+                    students = students.OrderByDescending(s => s.Department);
+                    break;
+                case "StudentNumber":
+                    students = students.OrderBy(s => s.StudentNumber);
+                    break;
+                case "studentNumber_desc":
+                    students = students.OrderByDescending(s => s.StudentNumber);
+                    break;
+                case "GPA":
+                    students = students.OrderBy(s => s.GPA);
+                    break;
+                case "gpa_desc":
+                    students = students.OrderByDescending(s => s.GPA);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.Name);
+                    break;
+            }
+
+            return View(await students.AsNoTracking().ToListAsync());
         }
 
         public IActionResult Privacy()
@@ -32,10 +87,12 @@ namespace StudentApplication.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Create(Student student)
         {
@@ -47,6 +104,7 @@ namespace StudentApplication.Controllers
             }
             return View(student);
         }
+
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -61,6 +119,7 @@ namespace StudentApplication.Controllers
             }
             return View(student);
         }
+
         [HttpPost]
         public IActionResult Edit(int id, Student student)
         {
@@ -77,6 +136,7 @@ namespace StudentApplication.Controllers
             }
             return View(student);
         }
+
         public IActionResult Details(int id)
         {
             var student = _context.Students
@@ -88,6 +148,7 @@ namespace StudentApplication.Controllers
             }
             return View(student);
         }
+
         [HttpPost]
         public IActionResult Delete(int id)
         {

@@ -22,6 +22,7 @@ namespace StudentApplication.Models
                 entity.Property(e => e.Faculty).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Department).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.StudentNumber).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.GPA).IsRequired();
 
                 entity.HasMany(e => e.Grades)
                       .WithOne()
@@ -35,7 +36,8 @@ namespace StudentApplication.Models
                     Surname = "Kızık",
                     Faculty = "Engineering",
                     Department = "Computer Engineering",
-                    StudentNumber = "202103001099"
+                    StudentNumber = "202103001099",
+                    GPA = 2.80
                 });
             });
 
