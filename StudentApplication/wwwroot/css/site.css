@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f8f9fa; /* Light */
 }
 
 .container {
@@ -16,17 +16,13 @@ body {
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #343a40; /* Dark */
 }
 
 a {
-    color: #007bff;
+    color: #563d7c; /* Primary */
     text-decoration: none;
 }
-
-    a:hover {
-        text-decoration: underline;
-    }
 
 table {
     width: 100%;
@@ -38,67 +34,16 @@ th, td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    font-size: 1.1em; /* Font size increased */
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #e9ecef; /* Light */
 }
 
 tr:hover {
-    background-color: #f5f5f5;
+    background-color: #f1f1f1;
 }
-
-.actions a, .actions button {
-    margin-right: 5px;
-    padding: 5px 10px;
-    font-size: 0.8em;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.actions .btn {
-    background-color: #007bff;
-    color: #fff;
-}
-
-    .actions .btn:hover {
-        background-color: #0056b3;
-    }
-
-.actions .btn-danger {
-    background-color: #dc3545;
-    color: #fff;
-}
-
-    .actions .btn-danger:hover {
-        background-color: #c82333;
-    }
-
-.btn {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 10px 0;
-    font-size: 0.8em;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-    .btn:hover {
-        background-color: #0056b3;
-    }
-
-.btn-secondary {
-    background-color: #6c757d;
-}
-
-    .btn-secondary:hover {
-        background-color: #5a6268;
-    }
 
 .form-container, .details-container {
     display: flex;
@@ -124,13 +69,15 @@ tr:hover {
 
     .form-container button, .details-container button {
         padding: 10px 20px;
-        background-color: #007bff;
+        background-color: #563d7c; /* Primary */
         color: #fff;
         border: none;
         border-radius: 4px;
         cursor: pointer;
     }
 
-        .form-container button:hover, .details-container button:hover {
-            background-color: #0056b3;
+        .form-container button:focus, .details-container button:focus,
+        .form-container button:active, .details-container button:active {
+            color: #fff; /* Ensure text color remains white */
+            outline: none; /* Remove default focus outline */
         }

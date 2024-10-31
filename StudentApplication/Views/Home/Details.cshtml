@@ -1,12 +1,11 @@
 ﻿@model StudentApplication.Models.Student
 
-    <div class="container details-container">
         <h1>Student Details</h1>
         <div>
             <h2>@Model.Name @Model.Surname</h2>
-            <p><strong>Age:</strong> @Model.Age</p>
+            <p><strong>Faculty:</strong> @Model.Faculty</p>
             <p><strong>Department:</strong> @Model.Department</p>
-            <p><strong>Class:</strong> @Model.Class</p>
+            <p><strong>Student Number:</strong> @Model.StudentNumber</p>
             <h3>Grades</h3>
             <table class="table">
                 <thead>
@@ -27,7 +26,6 @@
             </table>
         </div>
         <p>
-            <a href="/Home/Edit/@Model.Id" class="btn">Edit</a>
+    <a href="/Home/Edit/@Model.Id" class="btn btn-primary">Edit</a>
             <a href="/Home/Index" class="btn btn-secondary">Back to List</a>
         </p>
-    </div>

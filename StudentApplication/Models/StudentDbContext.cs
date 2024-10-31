@@ -19,9 +19,9 @@ namespace StudentApplication.Models
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.Surname).IsRequired().HasMaxLength(50);
-                entity.Property(e => e.Age).IsRequired();
+                entity.Property(e => e.Faculty).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Department).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.Class).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.StudentNumber).IsRequired().HasMaxLength(50);
 
                 entity.HasMany(e => e.Grades)
                       .WithOne()
@@ -33,9 +33,9 @@ namespace StudentApplication.Models
                     Id = 1,
                     Name = "Gürkan",
                     Surname = "Kızık",
-                    Age = 22,
-                    Department = "Computer Science",
-                    Class = "CS101"
+                    Faculty = "Engineering",
+                    Department = "Computer Engineering",
+                    StudentNumber = "202103001099"
                 });
             });
 
