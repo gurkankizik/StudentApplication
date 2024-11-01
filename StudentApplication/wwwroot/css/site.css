@@ -1,83 +1,43 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa; /* Light */
-}
-
-.container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
 }
 
 h1 {
-    text-align: center;
-    color: #343a40; /* Dark */
+    color: #343a40;
 }
 
-a {
-    color: #563d7c; /* Primary */
-    text-decoration: none;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
+.table {
     margin-top: 20px;
 }
 
-th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    font-size: 1.1em; /* Font size increased */
-}
-
-th {
-    background-color: #e9ecef; /* Light */
-}
-
-tr:hover {
-    background-color: #f1f1f1;
-}
-
-.form-container, .details-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-    .form-container div, .details-container div {
-        display: flex;
-        flex-direction: column;
+    .table th a {
+        color: #000000; /* Changed to black */
+        text-decoration: none;
     }
 
-    .form-container label, .details-container label {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .form-container input, .details-container input {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    .form-container button, .details-container button {
-        padding: 10px 20px;
-        background-color: #563d7c; /* Primary */
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-        .form-container button:focus, .details-container button:focus,
-        .form-container button:active, .details-container button:active {
-            color: #fff; /* Ensure text color remains white */
-            outline: none; /* Remove default focus outline */
+        .table th a:hover {
+            color: #555555; /* Slightly lighter black for hover */
         }
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.pagination .page-link {
+    color: #007bff;
+}
+
+    .pagination .page-link:hover {
+        color: #0056b3;
+    }
+
+.btn {
+    margin: 5px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-around;
+}

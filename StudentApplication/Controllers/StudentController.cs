@@ -16,6 +16,11 @@ namespace StudentApplication.Controllers
             _logger = logger;
             _context = context;
         }
+        public IActionResult Index()
+        {
+            var students = _context.Students.ToList();
+            return View(students);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -84,12 +89,6 @@ namespace StudentApplication.Controllers
                 return NotFound();
             }
             return View(student);
-        }
-
-        public IActionResult Index()
-        {
-            var students = _context.Students.ToList();
-            return View(students);
         }
     }
 }
