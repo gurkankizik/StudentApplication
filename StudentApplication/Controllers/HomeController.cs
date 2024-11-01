@@ -16,7 +16,7 @@ namespace StudentApplication.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string searchString, string sortOrder)
+        public async Task<IActionResult> Index(string searchString, string sortOrder, int? pageNumber)
         {
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["SurnameSortParm"] = sortOrder == "Surname" ? "surname_desc" : "Surname";
@@ -74,7 +74,12 @@ namespace StudentApplication.Controllers
                     break;
             }
 
-            return View(await students.AsNoTracking().ToListAsync());
+            int pageSize = 10;
+            var paginatedList = await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pageNumber ?? 1, pageSize);
+
+            ViewData["TotalCount"] = await _context.Students.CountAsync();
+
+            return View(paginatedList);
         }
 
         public IActionResult Privacy()
