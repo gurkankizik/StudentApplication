@@ -5,7 +5,7 @@
 
 <h1>Students List</h1>
 
-<p>Total Students: @ViewData["TotalCount"]</p>
+<p style="text-align:center">Total Students: @ViewData["TotalCount"]</p>
 
 <table class="table">
     <thead>
@@ -54,8 +54,8 @@
                 <td>@student.StudentNumber</td>
                 <td>@student.GPA</td>
                 <td class="actions">
-                    <a href="/Home/Details/@student.Id" class="btn btn-info">Details</a>
-                    <a href="/Home/Edit/@student.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Details" asp-controller="Student" asp-route-id="@student.Id" class="btn btn-info">Details</a>
+                    <a asp-action="Edit" asp-controller="Student" asp-route-id="@student.Id" class="btn btn-primary">Edit</a>
                     <form asp-action="Delete" method="post" style="display:inline;">
                         <input type="hidden" name="id" value="@student.Id" />
                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -80,4 +80,4 @@
     }
 </div>
 <br></br>
-<a href="/Home/Create" class="btn btn-primary">Create New Student</a>
+<a asp-action="Create" asp-controller="Student" class="btn btn-primary">Create New Student</a>

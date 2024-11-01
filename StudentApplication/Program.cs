@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using StudentApplication.Models;
+using StudentApplication.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
