@@ -34,7 +34,6 @@ namespace StudentApplication.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create(Student student)
         {
             if (ModelState.IsValid)
@@ -62,7 +61,6 @@ namespace StudentApplication.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Student student)
         {
             if (id != student.Id)
@@ -79,16 +77,64 @@ namespace StudentApplication.Controllers
             return View(student);
         }
 
-        public IActionResult Details(int id)
+        [HttpGet("Details/{id}")]
+        public async Task<IActionResult> Details(int? id)
         {
-            var student = _context.Students
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var student = await _context.Students
                 .Include(s => s.Grades)
-                .FirstOrDefault(s => s.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (student == null)
             {
                 return NotFound();
             }
+
             return View(student);
+        }
+
+        [HttpPost("SaveGrade")]
+        public async Task<IActionResult> SaveGrade(int studentId, int id, string courseName, int score)
+        {
+            if (ModelState.IsValid)
+            {
+                Grade grade;
+                if (id == 0)
+                {
+                    grade = new Grade { StudentId = studentId, CourseName = courseName, Score = score };
+                    _context.Grades.Add(grade);
+                }
+                else
+                {
+                    grade = await _context.Grades.FindAsync(id);
+                    if (grade == null)
+                    {
+                        return NotFound();
+                    }
+                    grade.CourseName = courseName;
+                    grade.Score = score;
+                    _context.Grades.Update(grade);
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Details), new { id = studentId });
+            }
+            return View();
+        }
+
+        [HttpPost("DeleteGrade")]
+        public async Task<IActionResult> DeleteGrade(int id)
+        {
+            var grade = await _context.Grades.FindAsync(id);
+            if (grade != null)
+            {
+                _context.Grades.Remove(grade);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Details), new { id = grade.StudentId });
         }
     }
 }

@@ -12,12 +12,12 @@ h1 {
 }
 
     .table th a {
-        color: #000000; /* Changed to black */
+        color: #000000;
         text-decoration: none;
     }
 
         .table th a:hover {
-            color: #555555; /* Slightly lighter black for hover */
+            color: #555555;
         }
 
 .pagination .page-item.active .page-link {
@@ -40,4 +40,12 @@ h1 {
 .actions {
     display: flex;
     justify-content: space-around;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.btn-sm {
+    margin-right: 0.5rem;
 }

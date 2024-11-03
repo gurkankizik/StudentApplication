@@ -21,6 +21,7 @@
                         <tr>
                             <th>Course Name</th>
                             <th>Score</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +30,13 @@
                             <tr>
                                 <td>@grade.CourseName</td>
                                 <td>@grade.Score</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" onclick="editGrade(@grade.Id, '@grade.CourseName', @grade.Score)">Edit</button>
+                                    <form asp-action="DeleteGrade" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@grade.Id" />
+                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -38,6 +46,21 @@
             {
                 <p>No grades available for this student.</p>
             }
+
+            <h3 class="mt-4">Add/Edit Grade</h3>
+            <form asp-action="SaveGrade" method="post">
+                <div class="form-group">
+                    <label for="CourseName">Course Name</label>
+                    <input type="text" class="form-control" id="CourseName" name="CourseName" required />
+                </div>
+                <div class="form-group">
+                    <label for="Score">Score</label>
+                    <input type="number" class="form-control" id="Score" name="Score" required />
+                </div>
+                <input type="hidden" id="GradeId" name="Id" value="0" />
+                <input type="hidden" name="StudentId" value="@Model.Id" />
+                <button type="submit" class="btn btn-primary mt-2">Save Grade</button>
+            </form>
         </div>
         <div class="card-footer text-center">
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
@@ -45,3 +68,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function editGrade(id, courseName, score) {
+        document.getElementById('GradeId').value = id;
+        document.getElementById('CourseName').value = courseName;
+        document.getElementById('Score').value = score;
+    }
+</script>
