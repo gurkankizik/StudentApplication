@@ -15,6 +15,7 @@ namespace StudentApplication.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Student>().HasQueryFilter(s => !s.IsDeleted);
 
             modelBuilder.Entity<Student>(entity =>
             {

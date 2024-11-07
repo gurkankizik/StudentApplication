@@ -29,5 +29,7 @@ namespace StudentApplication.Models
         public double GPA { get; set; }
 
         public List<Grade> Grades { get; set; } = new();
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

@@ -8,13 +8,13 @@ namespace StudentApplication.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly ILogger<StudentController> _logger;
         private readonly StudentDbContext _context;
+        private readonly ExportService _exportService;
 
-        public StudentController(ILogger<StudentController> logger, StudentDbContext context)
+        public StudentController(StudentDbContext context, ExportService exportService)
         {
-            _logger = logger;
             _context = context;
+            _exportService = exportService;
         }
         public IActionResult Index()
         {
@@ -135,6 +135,12 @@ namespace StudentApplication.Controllers
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Details), new { id = grade.StudentId });
+        }
+        [HttpGet("ExportStudentsToExcel")]
+        public IActionResult ExportStudentsToExcel()
+        {
+            var content = _exportService.ExportStudentsToExcel();
+            return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Students.xlsx");
         }
     }
 }

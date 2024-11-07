@@ -95,18 +95,18 @@ namespace StudentApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var student = _context.Students.Find(id);
+            var student = await _context.Students.FindAsync(id);
             if (student == null)
             {
-                return NotFound();
+                return View("StudentNotFound");
             }
 
-            _context.Students.Remove(student);
-            _context.SaveChanges();
-
-            return RedirectToAction("Index");
+            student.IsDeleted = true;
+            _context.Students.Update(student);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
